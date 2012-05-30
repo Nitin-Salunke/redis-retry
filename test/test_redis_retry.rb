@@ -44,4 +44,12 @@ class TestRedisRetry < Test::Unit::TestCase
     assert @redis['foo']
     assert @redis['bar']
   end
+
+  def test_should_retry_forever_with_tries_is_zero
+    @redis = Redis::Retry.new(:tries => 0, :wait => 0, :redis => @r)
+    send = sequence('send')
+    @r.stubs(:send).raises(Errno::ECONNREFUSED).times(15).in_sequence(send)
+    @r.stubs(:send).returns(true).in_sequence(send)
+    assert @redis['foo']
+  end
 end
