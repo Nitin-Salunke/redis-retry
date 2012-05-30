@@ -21,6 +21,8 @@ begin
     gemspec.authors = ["Matt Duncan"]
     gemspec.version = '0.1.0'
     gemspec.add_dependency 'redis'
+    gemspec.add_development_dependency 'mocha'
+    gemspec.add_development_dependency 'jeweler'
     gemspec.description = <<description
 Adds a Redis::Retry class which can be used to proxy calls to Redis while
 automatically retrying when a connection cannot be made.  This is useful
